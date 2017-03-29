@@ -1,0 +1,43 @@
+{
+	"version": "0.1.0",
+	"components": [
+		{
+			"name": "fastc",
+			"version": "0.1.5"
+		},
+		{
+			"name": "fconf",
+			"version": "0.4.10"
+		},
+		{
+			"name": "fconf-node",
+			"version": ""
+		},
+		{
+			"name": "fconf-polymer",
+			"version": ""
+		},
+		{
+			"name": "fdevices",
+			"version": "0.1.9"
+		},
+		{
+			"name": "fessbox",
+			"version": "0.2.0"
+		},
+		{
+			"name": "metrics",
+			"version": ""
+		},
+		{
+			"name": "redis",
+			"version": "3.2"
+		},
+		{
+			"name": "voxbox-ui",
+			"version": ""
+		}
+	],
+	"created_at": "2017-03-29T19:23:22.487827371+03:00",
+	"updated_at": "0001-01-01T00:00:00Z"
+}
