@@ -1,0 +1,6 @@
+---
+# vars file for ansible-fconf
+
+fconf_version: 0.4.10
+fconf_release: https://github.com/FarmRadioHangar/fconf/releases/download
+download_dir: /var/lib/voxbox/downloads

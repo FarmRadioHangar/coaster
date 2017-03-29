@@ -1,0 +1,8 @@
+---
+# vars file for fconf-polymer
+fconf_polymer_release: https://github.com/FarmRadioHangar/fconf-polymer/archive
+fconf_polymer_version: 0.1.1
+download_dir: /var/lib/voxbox/downloads/fconf-polymer
+fconf_polymer_install: /home/fri/fconf-polymer
+fconf_polymer_service: fconf-polymer
+fconf_polymer_module_backup: /var/lib/voxbox/backup/fconf-polymer

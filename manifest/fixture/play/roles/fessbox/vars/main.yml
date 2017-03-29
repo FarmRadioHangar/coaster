@@ -1,0 +1,8 @@
+---
+# vars file for fessbox
+
+fessbox_version: 0.2.0
+fessbox_install: /home/fri/fessbox
+download_dir: /var/lib/voxbox/downloads/fessbox
+fessbox_release: https://github.com/FarmRadioHangar/fessbox/archive
+fessbox_module_backup: /var/lib/voxbox/backup/fessbox

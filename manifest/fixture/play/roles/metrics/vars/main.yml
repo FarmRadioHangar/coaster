@@ -1,0 +1,13 @@
+---
+# vars file for metrics
+
+influxdb_database: voxbox
+influxdb_url:  https://metrics.uliza.fm:8087
+
+telegraf_download: https://dl.influxdata.com/telegraf/releases
+telegraf_release: telegraf-1.1.1_linux_armhf.tar.gz
+download_dir: /var/lib/voxbox/downloads
+jsonline_release: https://github.com/FarmRadioHangar/jsonline/releases/download
+jsonline_version: 0.1.6
+influxdb_username: write username here
+influxdb_password: write password here

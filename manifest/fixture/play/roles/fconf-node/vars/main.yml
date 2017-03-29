@@ -1,0 +1,10 @@
+---
+# vars file for fconf-node
+
+fconf_node_release: https://github.com/FarmRadioHangar/fconf-node/archive
+fconf_node_version: 0.1.1
+download_dir: /var/lib/voxbox/downloads/fconf-node
+fconf_node_install: /home/fri/fconf-node
+fconf_defaults: /etc/fconf/defaults
+fconf_node_service: fconf-node
+fconf_node_module_backup: /var/lib/voxbox/backup/fconf-node

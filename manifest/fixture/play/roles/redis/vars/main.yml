@@ -1,0 +1,3 @@
+---
+# vars file for redis
+redis_version: 3.2

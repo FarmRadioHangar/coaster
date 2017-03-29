@@ -1,0 +1,9 @@
+---
+# vars file for voxbox-ui
+
+voxbox_ui_module_backup: /var/lib/voxbox/backup/voxbox-ui
+voxbox_ui_release: https://github.com/FarmRadioHangar/voxbox-ui/archive
+voxbox_ui_version: 0.3.1
+download_dir: /var/lib/voxbox/downloads/voxbox-ui
+voxbox_ui_install: /home/fri/voxbox-ui
+voxbox_ui_service: voxbox-ui

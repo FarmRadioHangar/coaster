@@ -8,7 +8,7 @@ import (
 )
 
 func TestLoadFromPlaybook(t *testing.T) {
-	p := "fixture/voxbox-playbook"
+	p := "fixture/play"
 	m, err := LoadFromPlaybook(p)
 	if err != nil {
 		t.Fatal(err)

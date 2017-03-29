@@ -1,0 +1,6 @@
+---
+# vars file for fastc
+fastc_release: https://github.com/FarmRadioHangar/fastc/releases/download
+fastc_version: 0.1.5
+download_dir: /var/lib/voxbox/downloads/fastc
+extension_template: /etc/asterisk/extensions_additional.conf.fastc 

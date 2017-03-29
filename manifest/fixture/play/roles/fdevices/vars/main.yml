@@ -1,0 +1,7 @@
+---
+# vars file for fdevices
+
+fdevices_release: https://github.com/FarmRadioHangar/fdevices/releases/download
+fdevices_version: 0.1.9
+download_dir: /var/lib/voxbox/downloads/fdevices
+fdevices_service: fdevices
