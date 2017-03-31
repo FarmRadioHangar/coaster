@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/blang/semver"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -17,6 +18,25 @@ type Manitest struct {
 	Components []*Component `json:"components"`
 	CreatedAt  time.Time    `json:"created_at"`
 	UpdatedAt  time.Time    `json:"updated_at"`
+}
+
+// Greater return true when v1 is greater than v2
+func Greater(v1, v2 string) (bool, error) {
+	if v1 == "" && v2 != "" {
+		return false, nil
+	}
+	if v1 != "" && v2 == "" {
+		return false, nil
+	}
+	sv1, err := semver.Make(v1)
+	if err != nil {
+		return false, err
+	}
+	sv2, err := semver.Make(v2)
+	if err != nil {
+		return false, err
+	}
+	return sv1.GTE(sv2), nil
 }
 
 // Component represent apps that are part of voxbox
