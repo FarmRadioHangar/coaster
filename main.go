@@ -51,32 +51,26 @@ func (c *config) inventoryFileStr() string {
 
 func main() {
 	a := cli.NewApp()
-	a.Version = "0.1.0"
+	a.Version = "0.1.1"
 	a.Name = "coaster"
 	a.Usage = "manages ansible playbooks on a host machine"
-	a.Commands = []cli.Command{
-		{
-			Name:   "play",
-			Usage:  "runs ansible playbook",
-			Action: playService,
-			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "config",
-					Usage: "path to the configuration file",
-				},
-				cli.StringFlag{
-					Name:  "book",
-					Usage: "the name of the playbook to run",
-				},
-				cli.StringSliceFlag{
-					Name:  "tags",
-					Usage: "a list of playbook tags to run",
-				},
-				cli.BoolFlag{
-					Name:  "force",
-					Usage: "will force the operation",
-				},
-			},
+	a.Action = playService
+	a.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:  "config",
+			Usage: "path to the configuration file",
+		},
+		cli.StringFlag{
+			Name:  "book",
+			Usage: "the name of the playbook to run",
+		},
+		cli.StringSliceFlag{
+			Name:  "tags",
+			Usage: "a list of playbook tags to run",
+		},
+		cli.BoolFlag{
+			Name:  "force",
+			Usage: "will force the operation",
 		},
 	}
 	err := a.Run(os.Args)

@@ -1,26 +1,33 @@
 # coaster
 
-## commands
 
-play
 
 ```
 NAME:
-   coaster play - runs ansible playbook
+   coaster - manages ansible playbooks on a host machine
 
 USAGE:
-   coaster play [command options] [arguments...]
+   coaster [global options] command [command options] [arguments...]
 
-OPTIONS:
+VERSION:
+   0.1.1
+
+COMMANDS:
+     help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
    --config value  path to the configuration file
    --book value    the name of the playbook to run
    --tags value    a list of playbook tags to run
    --force         will force the operation
+   --help, -h      show help
+   --version, -v   print the version
 ```
+
 Example usage
 
 ```
-$ coaster play --config tmp/play.json --book voxbox-playbook --tags fconf,fastc --force true
+$ coaster  --config tmp/play.json --book voxbox-playbook --tags fconf,fastc --force true
 ```
 
 The configuration file looks like this 
