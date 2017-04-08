@@ -196,7 +196,8 @@ func playService(ctx *cli.Context) error {
 		}
 		return err
 	}
-	return playCMD(ctx, book, cfg, os.Stdout, os.Stderr)
+	err = playCMD(ctx, book, cfg, &stdout, os.Stderr)
+	return updateManifest(mp, &m, pm, fmt.Errorf("%s\n%v", &stdout, err))
 }
 
 func updateManifest(p string, m, pm *manifest.Manitest, err error) error {
