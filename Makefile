@@ -1,4 +1,4 @@
-VERSION=0.1.1
+VERSION=0.1.2
 NAME=coaster_$(VERSION)
 OUT_DIR=bin/linux_arm/coaster_$(VERSION)
 

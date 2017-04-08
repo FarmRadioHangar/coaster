@@ -55,7 +55,7 @@ func (c *config) inventoryFileStr() string {
 
 func main() {
 	a := cli.NewApp()
-	a.Version = "0.1.1"
+	a.Version = "0.1.2"
 	a.Name = "coaster"
 	a.Usage = "manages ansible playbooks on a host machine"
 	a.Action = playService
