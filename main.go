@@ -15,6 +15,10 @@ import (
 
 	"time"
 
+	"bytes"
+
+	"strings"
+
 	"github.com/FarmRadioHangar/coaster/manifest"
 	"github.com/urfave/cli"
 )
@@ -72,6 +76,18 @@ func main() {
 			Name:  "force",
 			Usage: "will force the operation",
 		},
+		cli.BoolFlag{
+			Name:  "ensure",
+			Usage: "this will rerun the play forever until it succeeds",
+		},
+		cli.DurationFlag{
+			Name:  "interval",
+			Usage: "the interval to retry running the playbook in minutes",
+		},
+		cli.DurationFlag{
+			Name:  "timeout",
+			Usage: "the time  to stop retrying running the playbook in minutes",
+		},
 	}
 	err := a.Run(os.Args)
 	if err != nil {
@@ -83,6 +99,7 @@ func play(book string, cfg *config) error {
 	cmd := exec.Command(ansible,
 		"-i", cfg.inventoryFileStr(), "infra.yml", fmt.Sprintf("--tags=%s", cfg.tagsString()),
 	)
+	fmt.Println("executing  ", strings.Join(cmd.Args, " "))
 	cmd.Dir = filepath.Join(cfg.PlaybookPath, book)
 	cmd.Stdout = cfg.Stdout
 	cmd.Stderr = cfg.Stderr
@@ -93,7 +110,13 @@ func play(book string, cfg *config) error {
 	return cmd.Wait()
 }
 
-func playCMD(ctx *cli.Context, stdout, stderr io.Writer) error {
+func playCMD(ctx *cli.Context, book string, cfg *config, stdout, stderr io.Writer) error {
+	cfg.Stdout = stdout
+	cfg.Stderr = stderr
+	return play(book, cfg)
+}
+
+func playService(ctx *cli.Context) error {
 	cfgFile := ctx.String("config")
 	if cfgFile == "" {
 		return errors.New("missing configuration file")
@@ -145,24 +168,53 @@ func playCMD(ctx *cli.Context, stdout, stderr io.Writer) error {
 			return nil
 		}
 	}
-	cfg.Stdout = stdout
-	cfg.Stderr = stderr
-	err = play(book, cfg)
-	if err != nil {
+	e := ctx.Bool("ensure")
+	var stdout bytes.Buffer
+	if e {
+		i := ctx.Duration("interval")
+		timeout := ctx.Duration("timeout")
+		fmt.Printf("interval %s timeout %s", i, timeout)
+		now := time.Now()
+		e := now.Add(timeout)
+		err := playCMD(ctx, book, cfg, &stdout, os.Stderr)
+		if err == nil {
+			return updateManifest(mp, &m, pm, nil)
+		}
+
+	stop:
+		for {
+			time.Sleep(i)
+			n := time.Now()
+			if n.After(e) {
+				return updateManifest(mp, &m, pm, fmt.Errorf("%s\n%v", &stdout, err))
+			}
+			stdout.Reset()
+			err = playCMD(ctx, book, cfg, &stdout, os.Stderr)
+			if err == nil {
+				break stop
+			}
+		}
 		return err
 	}
+	return playCMD(ctx, book, cfg, os.Stdout, os.Stderr)
+}
+
+func updateManifest(p string, m, pm *manifest.Manitest, err error) error {
 	now := time.Now()
 	if m.Version == "" {
 		m.CreatedAt = now
 	} else {
 		m.UpdatedAt = now
 	}
+	if err != nil {
+		m.Error.Version = pm.Version
+		m.Error.Message = err.Error()
+	}
 	m.Components = pm.Components
 	m.Version = pm.Version
-	d, _ := json.MarshalIndent(m, "", "\t")
-	return ioutil.WriteFile(mp, d, 0600)
-}
-
-func playService(ctx *cli.Context) error {
-	return playCMD(ctx, os.Stdout, os.Stderr)
+	b, err := json.Marshal(m)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(p, b, 0600)
 }

@@ -18,6 +18,10 @@ type Manitest struct {
 	Components []*Component `json:"components"`
 	CreatedAt  time.Time    `json:"created_at"`
 	UpdatedAt  time.Time    `json:"updated_at"`
+	Error      struct {
+		Version string `json:"version"`
+		Message string `json:"message"`
+	} `json:"error"`
 }
 
 // Greater return true when v1 is greater than v2
