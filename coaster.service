@@ -1,9 +1,9 @@
-Description=AutoSSH service for automatic provisioning from boxter server
+Description=Client service for automatic provisioning from boxter server
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/autossh -M 0 -T -o "ServerAliveInterval 20" -o "ServerAliveCountMax 3" -i /home/fri/.ssh/tunnel.id_rsa boxter@metrics.uliza.fm -R 0:localhost:660                                                                                                                      
+ExecStart=/usr/bin/ssh -tt -o "ServerAliveInterval 20" -o "ServerAliveCountMax 3" -i /home/fri/.ssh/tunnel.id_rsa boxter@metrics.uliza.fm -R 0:localhost:660                                                                                                                      
 User=fri
 Group=fri
 Restart=always
